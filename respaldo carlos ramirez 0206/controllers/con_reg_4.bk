@@ -1,0 +1,163 @@
+<?php
+class Con_reg_4 extends Controller
+{
+     function Con_reg_4() {
+
+             parent::Controller();
+             $this->load->database();
+             
+             $this->load->model('Model_insert_personas','',TRUE);
+             $this->load->model('Model_consulta_contratista','',TRUE);
+             $this->load->model('Model_insert','',TRUE);            
+             $this->load->library('xajax');
+             $this->load->helper(array('form', 'url'));
+             $this->load->library('form_validation');
+               $this->load->helper('form');
+             $this->xajax->registerFunction(array('alerta',&$this,'alerta'));
+             $this->xajax->processRequest();
+            /*  $this->load->library('pagination');
+
+             $config['base_url'] = 'http://192.168.1.199/desarrolloidyt/index.php/con_reg_4/index/';
+
+
+         
+          $config['total_rows'] = '3';
+          $config['page_query_string'] = TRUE;
+
+            $this->pagination->initialize($config);*/
+
+
+         
+
+
+     }
+
+    function index()
+
+   {
+          
+                  if(!isset($_POST['valorpk']) or $_POST['valorpk']==''){
+                  $data['valorpk']  = $this->uri->segment(3);}else{
+                  $data['valorpk']  = $_POST['valorpk'];}
+
+                  if(!isset($_POST['valorid']) or $_POST['valorid']==''){
+                  $data['valorid']  =$this->uri->segment(4);}else{
+                  $data['valorid']  =$_POST['valorid'];} //valor que viene por url al momento de modificar o eliminar un regitro persona
+
+                 $this->Model_insert_legal->pkcontratista    = $this->uri->segment(3);
+                 $this->form_validation->set_rules('nomb','Nombre','required');
+                 $this->form_validation->set_rules('apdo','Apellido','required');
+                 $this->form_validation->set_rules('ced','Numero de Cedula','required');
+                 $this->form_validation->set_rules('nrif','R.I.F.','required');
+                 $this->form_validation->set_rules('email','Correo Electronico','required');
+
+                
+                 $data['query']= $this->Model_consulta_contratista->personas_contratistas($data['valorpk']);
+                 $data['query_comisario']= $this->Model_consulta_contratista->consulta_persona_comisario($data['valorpk']);
+                 $data['query_persona_natural']= $this->Model_insert_personas->consulta_persona_natural($data['valorid']); //le consulto si el id de la persona existe en la vista personas naturales
+
+
+                 if ($data['query_persona_natural']->num_rows() > 0){
+                 $data['modo'] = 'modificar';}else{$data['modo'] = 'Incluir';
+              }
+
+               
+        if ($this->form_validation->run() == FALSE) //valido el formulario
+          {
+           $data['nomb'] = 'hffffffffffff';
+           
+           $this->load->view('Registro/regcontratista_4',$data);
+
+          }//fin de la primera llave form validation
+        else
+         {//si es que pasa la validacion ejecuto la accion de incluir o modificar el registro
+         if($data['query_persona_natural']->num_rows() > 0){//si  hay una  persona en la tabla persona con el id de persona
+
+//if ($data['valorid'] > 0){
+
+
+                  
+                  $data['nomb'] = 'carlos';
+                 
+                  $this->load->view('Registro/regcontratista_4',$data);
+
+
+//}
+  //  else{
+
+    //    $this->load->view('Registro/regcontratista_4',$data);
+
+
+    //}
+          // $result_mod_personas = $this->Model_insert_personas->modificar_persona_natural('personas_naturales',$_POST['valorpk']);
+            //$row = $result_mod_personas->row_array();
+
+
+
+
+
+                          // insertar
+                   }else{ // si las filas de consulta por id de persona son mayores a 0 ingreso la persona sea accionista o comisario
+            $result_personas = $this->Model_insert_personas->ingreso_persona('personas_naturales',$_POST['valorpk']);
+            $row = $result_personas->row_array();
+            $row['ins_personas_naturales'];
+            // inserte  a la persona natural
+         
+            if(!isset($_POST['comisario']) or $_POST['comisario'] == false ){//veo si el check de comisario es true(comisario) o false(accinista)
+            $result_accionista = $this->Model_insert_personas->ingreso_accionista('contratistas_acjdrl',$_POST['valorpk'],$row['ins_personas_naturales']);
+            redirect('con_reg_4/index/'.$_POST['valorpk']);} //fin si es falso el check ingreso accionista
+            else{
+            if($data['query_comisario']->num_rows() > 0){ //pregunto si hay un fk_contratista en comisario
+             //$this->xajax->alerta();
+             redirect('con_reg_4/index/'.$_POST['valorpk']);
+            }else{
+            $result_comisario = $this->Model_insert_personas->ingreso_comisario('contratistas_comisarios',$_POST['valorpk'],$row['ins_personas_naturales']);
+            redirect('con_reg_4/index/'.$_POST['valorpk']);
+            }
+
+            }//fin else truue el check ingreso comisario
+
+
+
+            $data['valorid']  = '0';
+
+
+
+
+         }//fin del else modificar o incluir
+
+                    
+              }//fin del else de la validacion form validation
+
+
+
+
+
+          }//fin index
+ 
+   
+   function modificar()
+   {
+                  if(!isset($_POST['valorid']) or $_POST['valorid']==''){
+                  $data['valorid']  =$this->uri->segment(4);}else{
+                  $data['valorid']  =$_POST['valorid'];}
+
+
+
+
+
+
+   }
+
+
+
+
+
+
+
+
+
+}
+
+
+?>

@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- INICIO DE COPIA !-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin t&iacute;tulo</title>
+<link rel="stylesheet" href="<?php  echo base_url(); ?>system/application/css/mainstyle2.css" type="text/css" />
+<link rel="stylesheet" href="<?php  echo base_url(); ?>system/application/SNC.css" type="text/css">
+<script type="text/javascript" src="<?php  echo base_url(); ?>system/application/js/general.js"></script>
+
+<script type="text/javascript" src="<?php  echo base_url(); ?>system/application/menu/stmenu.js"></script>
+
+<script type="text/javascript">
+<!--
+window.onerror=function(m,u,l)
+{
+	window.status = "Java Script Error: "+m;
+	return true;
+}
+
+
+
+
+
+
+</script>
+
+<?PHP
+
+// consulta para sacar los id de areas
+$this->db->select('epo_especialidad_objeto_pk,epo_nombre');
+//$this->db->where('aob_areas_objeto_fk', $row->aob_areas_objeto_pk);
+$consultaid = $this->db->get('especialidad_objeto');
+
+
+
+?>
+
+
+<?php echo '<script type="text/javascript">';
+
+      echo 'function  objClick(checkbox){';
+			
+	  echo 'if (!checkbox.checked)';
+	  echo 'switch(checkbox.name)'; 
+	  echo '{';
+
+
+                     foreach ($consultaid->result() as $row_id):
+                     //echo "<br>";
+                     echo 'case "area_'.$row_id->epo_especialidad_objeto_pk;
+                     echo '":';
+                    // echo "<br>";
+                    // echo 'alert(/"document.getElementById(radio_1)/")';
+					 echo 'document.getElementById("radio_'.$row_id->epo_especialidad_objeto_pk;
+                     echo '").checked = false;';
+                     echo 'break;';
+					 endforeach;
+
+      echo '}';
+      echo '}'; 
+      echo '</script>'; ?>
+
+
+<?php echo '<script type="text/javascript">';
+
+				echo 'function objPrinClick(radio){';
+					echo 'var f = document.form_area;';
+					echo 'if (radio.checked)';
+					echo 'switch (radio.value)';
+					echo '{';
+                    $this->db->select('epo_especialidad_objeto_pk,epo_nombre');
+                   $consultaid = $this->db->get('especialidad_objeto');
+
+                     foreach ($consultaid->result() as $row_id):
+                     //echo "<br>";
+							echo 'case "'.$row_id->epo_especialidad_objeto_pk;
+                            echo '":';
+							echo 'f.area_'.$row_id->epo_especialidad_objeto_pk;
+                            echo '.checked = true;';
+							echo 'break;';
+
+                            endforeach;
+								
+
+            echo	'}';
+			echo	'}';
+
+
+echo '</script>'; ?>
+
+
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#0066FF" vlink="#9933FF" alink="#FF3333">
+<div> <iframe src="<?php  echo base_url(); ?>system/application/views/header.php" width="100%" height="245px" frameborder="0" scrolling="no"> </iframe></div>
+
+<div class="bodywrap">
+<div class="bodyinfo">
+    <?php $atributos = array('name' => 'form_area')?>
+      <?php echo form_open('con_reg_3/ingreso_areas_contratista',$atributos); ?>
+      <?php   echo form_hidden('valorpk', $this->uri->segment(3));?>
+       <input type="hidden" name="valorpk" value="<?php if($valorpk != '') {echo $valorpk;} else {echo '0';}; ?>">
+      <div class="headerbox"> 
+
+
+
+ <?php
+
+
+
+			        $consulta = $this->db->query('select * from vis_contrstistas_areas_objeto where con_contratistas_pk ='.$valorpk.'');
+
+						 $a = array();
+				         $b= array();
+
+
+			           foreach ($consulta->result() as $row_3){
+
+                       if($row_3->epo_especialidad_objeto_pk > 0 ){
+
+					         $a[$row_3->epo_especialidad_objeto_pk] = 'checked';
+					  }else{
+
+					         $a[$row_3->epo_especialidad_objeto_pk] = '';
+					    }
+
+					 // echo $a[$row_3->epo_especialidad_objeto_pk]."==".$row_3->epo_especialidad_objeto_pk."<br>";
+
+
+					  if($row_3->epo_especialidad_objeto_pk > 0  and $row_3->eac_principal == 't'){
+
+					  $b[$row_3->epo_especialidad_objeto_pk] = 'checked';
+
+					  }else{
+
+					  $b[$row_3->epo_especialidad_objeto_pk] = '';
+
+					  }
+
+					// echo $b[$row_3->epo_especialidad_objeto_pk]."==".$row_3->epo_especialidad_objeto_pk."<br>";
+
+					  }
+
+
+		      ?>  
+
+
+
+
+      <table width="800" border="0" cellspacing="0" cellpadding="0" style="line-height:2">
+  
+  <tr>
+    <td width="267">&nbsp;</td>
+    <td colspan="2"><?php echo "numero de Registro:".$valorpk;?></td>
+    <td width="275">&nbsp;</td>
+  </tr>
+  
+  <tr>
+    <td colspan="4" class="bgtitle"><b>Actividad de la Contratista</b></td>
+    </tr>
+  <tr>
+    <td><?php
+                                                
+     $this->db->select('aob_areas_objeto_pk,aob_nombre');
+     $consulta = $this->db->get('areas_objeto');
+       ?>
+       
+       </td>
+    <td colspan="2"><b>Principal</b></td>
+    <td>&nbsp;</td>
+	
+	
+  </tr>
+   
+  										<?php foreach ($consulta->result() as $row): ?>
+
+                                      
+                                         <?PHP
+
+                                        // consulta a especialidad de las areas objeto
+                                           $this->db->select('epo_especialidad_objeto_pk,epo_nombre');
+                                           $this->db->where('aob_areas_objeto_fk', $row->aob_areas_objeto_pk);
+                                           $consulta2 = $this->db->get('especialidad_objeto');
+                                           ?>
+                                               
+                      <tr>
+                        <td><b><?php echo  $row->aob_nombre;?></b></td>
+                        <td colspan="2">&nbsp;</td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <?php foreach ($consulta2->result() as $row2): ?>
+  <tr>
+    <td>
+	
+	
+	
+	
+	
+	<?php  echo $row2->epo_especialidad_objeto_pk; ?><input type="checkbox" name="<?php echo "area_".$row2->epo_especialidad_objeto_pk; ?>"   value="<?php echo $row2->epo_especialidad_objeto_pk; ?>" <?php if(isset($a[$row2->epo_especialidad_objeto_pk])) echo $a[$row2->epo_especialidad_objeto_pk]; else  echo ''; ?> onclick="objClick(this)" />
+      
+	  <?php echo $row2->epo_nombre; ?></td>
+	  
+    <td width="60" style="text-align:center"> <?php  echo $row2->epo_especialidad_objeto_pk; ?> <input name="radio" align="center" id="radio_<?php  echo $row2->epo_especialidad_objeto_pk; ?>" value ="<?php  echo $row2->epo_especialidad_objeto_pk; ?>"  <?php if(isset($b[$row2->epo_especialidad_objeto_pk])) echo $b[$row2->epo_especialidad_objeto_pk]; else  echo ''; ?>  onclick="objPrinClick(this)" type="radio" /></td>
+   
+    <td width="198" style="text-align:center">&nbsp;</td>
+    
+	<td>&nbsp;</td>
+ 
+  </tr>
+    <?php endforeach; ?>            
+                                    
+    <?php endforeach; ?>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+      <div align="right"><br />
+        <input name="submit" type="submit"  value="Guardar y Continuar"/>
+      </div>
+      <div class="corner1"> </div>
+<div class="corner2"> </div>
+<div class="corner3"> </div>
+<div class="corner4"> </div>
+</div>         
+				
+		      <?php echo form_close(); ?>
+			
+
+
+
+
+ <div>
+ 
+ 
+<table width="860"  height="25" class="bgceldas">
+    <tr class="bgtitle">
+<th width="290">Áreas</th>
+<th width="449"> <?php $can_areas = $this->db->count_all('vis_contrstistas_areas_objeto'); echo $can_areas; ?>  Especialidades</th>
+<th width="20"></th>
+</tr>
+  <td width="20">
+	<?php 
+	
+	$can_areas = $this->db->count_all('vis_contrstistas_areas_objeto'); //cantidad de tipos de especialidades es un  numerico
+    $parametro = 0;
+
+                    while ($parametro >  '200'/*$can_areas*/){
+                           $this->db->where('aob_areas_objeto_pk',$parametro);
+						   $this->db->where('con_contratistas_pk',$valorpk);
+                           $query_areas = $this->db->get('vis_contrstistas_areas_objeto');
+				           $area = $query_areas->row();
+				     
+					       if($area == true){ 
+					  
+					            echo "<tr>"."<td>".$area->aob_nombre."</td>";				
+											
+				 		        $consulta = $this->db->query('select * from vis_contrstistas_areas_objeto where aob_areas_objeto_pk ='.$area->aob_areas_objeto_pk.' and con_contratistas_pk='.$valorpk.'');
+						
+					           	echo "<td>";
+						        foreach ($consulta->result() as $fila){
+
+                                   
+                                echo $fila->epo_nombre;
+								if($fila->eac_principal == 't'){echo "*"; }else{echo "";}
+								echo "<br>";
+                                          
+                               }
+			                      echo "</td>";
+
+                                  echo "<td>";
+						        foreach ($consulta->result() as $fila){
+
+                                $attr = array('onclick'=>"return confirm('¿Esta seguro de borrar este registro?');"); 
+
+                              echo anchor('con_reg_3/eliminar/'.$valorpk.'/'.$fila->epo_especialidad_objeto_pk, '<img alt="Eliminar" src="'.base_url().'system/application/imagenes/delete.png" border="0">',$attr)."<br>";
+
+                               }
+			                      echo "</td>";
+
+					
+				        	      echo "</tr>";
+					        }else{
+				                   echo "";
+				                 }
+				    $parametro++;
+				   }
+                    
+
+                      ?>    </td>
+	</table>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</div>
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<p>
+<p>
+<br/>
+
+<div class="bgfooter"> <div class="footerimage"> </div></div>
+</body>
+</html>
+
+
+
+
+
+

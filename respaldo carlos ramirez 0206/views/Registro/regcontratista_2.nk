@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- INICIO DE COPIA !-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>.::Ingreso Documentos Legales::.</title>
+<link rel="stylesheet" href="<?php  echo base_url(); ?>system/application/css/mainstyle2.css" type="text/css" />
+<script type="text/javascript" src="<?php  echo base_url(); ?>system/application/js/general.js"></script>
+
+
+
+<!-- Inicio de: JS y CSS para el DataPick. -->
+<script type="text/javascript" src="<?php echo base_url(); ?>system/application/js/calendario/jscripts/scripts.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>system/application/js/calendario/jscripts/calendar/calendar.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>system/application/js/calendario/jscripts/calendar/calendar-es.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>system/application/js/calendario/jscripts/calendar/calendar-setup.js"></script>
+
+<link media="screen" href="<?php echo base_url(); ?>system/application/js/calendario/styles/calendar-blue.css" rel="stylesheet" type="text/css" title="win2k-cold-1">
+<link media="print" href="<?php echo base_url(); ?>system/application/js/calendario/styles/print.css" rel="stylesheet" type="text/css" title="win2k-cold-1">
+<!--    Fin de: JS y CSS para el DataPick. -->
+<script type="text/javascript" src="<?=base_url();?>system/application/views/js_menu/stmenu.js"></script>
+
+<?php $this->mod_usuario->en_session(); ?>
+
+
+<script type="text/javascript">
+<!--
+<!--
+window.onerror=function(m,u,l)
+{
+	window.status = "Java Script Error: "+m;
+	return true;
+}
+
+function MM_callJS(jsStr) { //v2.0
+  return eval(jsStr)
+}
+//-->
+</script>
+
+
+
+<style type="text/css">
+<!--
+.Estilo1 {	font-family: Tahoma;
+	font-size: 24px;
+}
+-->
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#0066FF" vlink="#9933FF" alink="#FF3333">
+<div>
+ <?php echo $this->vismenu; ?>
+ 
+</div>
+
+<div class="bodywrap">
+  <div class="bodyinfo">
+   <?php $atributos = array('name' => 'form_legal')?>
+  <?php echo form_open('con_reg_2/grabar',$atributos); ?>
+    <input type="hidden" name="valorpk" value="<?php if($valorpk != '') {echo $valorpk;} else {echo '0';}; ?>">
+	<input type="hidden" name="valorid" value="<?php if($valorid != '') {echo $valorid;} else {echo '0';}; ?>">
+	<input type="hidden"   name="modo"    value="<?php echo $modo; ?>">
+   <input type="hidden" name="select_iddenomi" value="<?php if($select_iddenomi != '') {echo $select_iddenomi;} else {echo '0';}; ?>">
+
+	<table width="800px" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	<td colspan="4" align="center"><label><b>Registro de Datos Legales de la Contratista</b></label></td>
+	</tr>
+	<tr><td width="157">&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	<tr>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <tr>
+	<td>Número de Inscripción:</td>
+	<td width="201"><div class="casilla" style=" width:200px"><?php echo $fila['con_codigo_siez']; ?></div></td>
+	<td width="242" align="center">Siglas de la Contratista :</td>
+	<td width="200"><div class="casilla" style=" width:200px"><?php echo $fila['con_siglas']; ?></div></td>
+	</tr>
+	</table>
+	
+	<br />
+	<table width="92%" border="0" cellspacing="0" cellpadding="0" height="10">
+      <tr>
+        <td></td>
+        <th style="text-align:left"><label></label></th>
+        <td width="0%"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="44%"><br /></td>
+      </tr>
+      <tr>
+        <td class="bgtitle" ><lable><b>Información Legal de la Empresa</b></lable>
+        </td>
+        <td width="56%"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><font color="#FF0000">
+          <?php //echo validation_errors(); ?>
+        </font></td>
+      </tr>
+<tr></tr>
+	</table>
+		
+    
+      
+		
+    <table width="92%" border="0" cellspacing="0" cellpadding="0" height="292">
+      <tr>
+        <td width="265"><?php // echo "numero de Registro:".$valorpk;?>        </td>
+        <td width="301" ><?php 
+		                        $cadenafecha = "%d-%m-%Y";
+                                $tiempo = time();
+                                $factual = mdate($cadenafecha, $tiempo); 
+                                 
+          ?>
+            <input type="hidden" name="factual" maxlength="10" size="10" value="<?php echo $factual; ?>"/>
+            <?php // echo "numero de Registro:".$valorid;?>        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td></td>
+      </tr>
+      <?php
+		  
+			$consulta_radio = $this->db->query('select * from vis_contratistas_legal  where con_contratistas_fk ='.$valorpk.' and clg_modificacion = FALSE ');
+			
+			
+			if($consulta_radio->num_rows() > 0){
+			
+                             if($valorid > 0 ){
+                             $consulta = $this->db->query('select * from vis_contratistas_legal  where con_contratistas_fk ='.$valorpk.' and clg_modificacion = FALSE and clg_contratistas_legal_pk ='.$valorid);
+                                             if($consulta->num_rows() > 0){
+
+                                                         $var1='checked';
+                                                         $var2='';
+
+                                            }else{
+
+                                                         $var1='disabled';
+                                                         $var2='checked';
+                          
+                                                  }
+
+                             }else{
+                                 
+                                                         $var1='disabled';
+                                                         $var2='checked';
+         
+                             }
+
+								   
+           }else{
+	
+                                                           $var1='';
+                                                           $var2='';
+
+			    }
+			
+			?>
+     
+  
+<tr>
+<td></td>
+<td>
+ Registro Principal
+  <input type="radio" name="radio" <?php echo $var1; ?> value="1" <?php echo $this->form_validation->set_radio('radio', '1'); ?>   />
+      Modificación
+  <input type="radio" name="radio"  <?php echo $var2; ?> value="2" <?php echo $this->form_validation->set_radio('radio', '2'); ?> /></td>
+</tr>
+  <tr>
+    <td height="30"><label>Número Reg. Mercantil: </label></td>
+    <td><input type="text" name="nummregm"  id="nummregm" maxlength="60" size="30"  value="<?php echo $nummregm; ?>"   /></td>
+    <td width="315"><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('nummregm'); ?> </font></span> </td>
+  </tr>
+  <tr>
+    <td height="30"><label>Denominación Comercial:</label></td>
+    <td><select name="iddenomi" value="<?php echo $iddenomi;?>" >
+      <option value="<?php echo 0; ?>">[Seleccione uno]</option>
+      <?php foreach ($query_denominacion->result() as $row): ?>
+      <?php if($row->dec_denominacion_comercial_pk == $select_iddenomi){ ?>
+      <option value="<?php echo $row->dec_denominacion_comercial_pk; ?>" selected="selected"><?php echo $row->dec_abreviatura; ?></option>
+      <?php   }else{ ?>
+      <option value="<?php echo $row->dec_denominacion_comercial_pk; ?>" ><?php echo $row->dec_abreviatura; ?></option>
+      <?php  }  ?>
+      <?php endforeach; ?>
+    </select></td>
+    <td><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('iddenomi'); ?> </font></span></td>
+  </tr>
+  <tr>
+    <td height="30"><label>Circunscripción Judicial:</label></td>
+    <!-- Se recomienda que este campo sea alimentado de una tabla de base de datos -->
+    <td><input type="text" name="idcrjud"  id="idcrjud" maxlength="40" size="25"  value="<?php echo $idcrjud;?>"  />    </td>
+    <td><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('idcrjud'); ?>
+            <!--  mensag individual de la validacion -->
+    </font></span></td>
+  </tr>
+  <tr>
+    <td>Fecha Inscrip. Registro Mercantil: </td>
+    <td><input type="text" name="finscrmer" id="finscrmer" maxlength="10" size="10"  value="<?php echo $finscrmer; ?>"   readonly="readonly" />
+        <img name="dFCalendario" id="dFCalendario" src="<?php echo base_url(); ?>system/application/js/calendario/images/calendar.gif" width="16" height="16" />
+        <!-- Inicio de: Iniciar DataPick. -->
+        <script type="text/javascript">
+		var campoId = 'finscrmer';
+		var imagenId = 'dFCalendario';
+		
+		
+		iniciarCalendario(campoId, imagenId,'%d-%m-%Y',false);
+		</script></td>
+    <td><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('finscrmer'); ?> </font></span></td>
+  </tr>
+  <td height="30"><lable>Número Inscrip. Reg. Mercantil:</lable></td>
+      <td><input type="text" name="numinsr" id="numinsr" maxlength="10" size="10" value="<?php echo $numinsr; ?>"  onkeypress="return SoloNumero(event)"  />      </td>
+    <td><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('numinsr'); ?> </font></span></td>
+  <tr>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td height="30"><label>Número de Tomo:</label></td>
+    <td><input type="text" name="tomo" id="tomo" maxlength="10" size="10"  value="<?php echo $tomo; ?>" /></td>
+    <td><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('tomo'); ?> </font></span></td>
+  </tr>
+  <tr>
+    <td height="30"><label>Folio:</label></td>
+    <td><input type="text" name="folio" id="folio" value="<?php echo $folio; ?>" maxlength="10" size="10"   /></td>
+    <td><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('folio'); ?> </font></span></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+    </table>
+  <table width="92%" border="0" cellspacing="0" cellpadding="0" height="226">
+      <tr>
+        <td width="249" height="30"><label>Fecha Constitutiva:</label></td>
+        <td><input type="text" name="fchconsti" id="fchconsti" maxlength="12" size="12" value="<?php echo $fchconsti; ?>"  readonly="readonly" />
+            <img name="Calendario" id="Calendario" src="<?php echo base_url(); ?>system/application/js/calendario/images/calendar.gif" width="16" height="16" />
+            <!-- Inicio de: Iniciar DataPick. -->
+            <script type="text/javascript">
+		var campoId = 'fchconsti';
+		var imagenId = 'Calendario';
+		iniciarCalendario(campoId, imagenId,'%d-%m-%Y',false);
+		</script></td>
+        <td colspan="3"><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('fchconsti'); ?> </font></span></td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+  <td height="31"><label>Cierre Fiscal: </label>  </td>
+      <td width="267"><input type="text" name="ciefisc" id="ciefisc" value="<?php echo $ciefisc; ?>" maxlength="12" size="12" readonly="readonly" />
+          <img name="fCalendario" id="fCalendario" src="<?php echo base_url(); ?>system/application/js/calendario/images/calendar.gif" width="16" height="16" />
+          <!-- Inicio de: Iniciar DataPick. -->
+          <script type="text/javascript">
+		var campoId = 'ciefisc';
+		var imagenId = 'fCalendario';
+		iniciarCalendario(campoId, imagenId,'%d-%m-%Y',false);
+		</script>      </td>
+    <td colspan="3"></td>
+  <tr>
+    <td height="30">Capital Social Suscrito:</td>
+    <td  height="30"><input type="text" name="capsocsuc" id="capsocsuc" maxlength="12" size="12"   value="<?php echo $capsocsuc; ?>" onkeypress="return SoloNumero(event)" /></td>
+    <td colspan="3"><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('capsocsuc'); ?> </font></span></td>
+  </tr>
+  <tr>
+    <td height="30">Capital Social Pagado:</td>
+    <td height="30"><input type="text" name="capsocpg" maxlength="12" size="12"   value="<?php echo $capsocpg; ?>" onkeypress="return SoloNumero(event)"  onkeyup="puntitos(this,this.value.charAt(this.value.length-1))" /></td>
+    <td colspan="3"><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('capsocpg'); ?> </font></span></td>
+  </tr>
+  <tr>
+    <td height="30">Número de Modificación: </td>
+    <td><input type="text" name="nmodif" id="nmodif" maxlength="12" size="12"   value="<?php echo $nmodif; ?>" onkeypress="return SoloNumero(event)" /></td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30"></td>
+    <td>&nbsp;</td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30"><label>Objeto Social:</label>    </td>
+    <td width="267" rowspan="2"><textarea name="objsc" id="objsc" cols="22" rows="4" class="countdown limit_300_"><?php echo $objsc; ?></textarea></td>
+    <td height="30" colspan="3"><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('objsc'); ?> </font></span></td>
+  </tr>
+  <tr>
+    <td height="33"></td>
+    <td width="116"></td>
+    <td width="159">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td width="7"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="30"><label>Domicilio Legal:</label></td>
+    <td><textarea name="dirleg" id="dirleg" cols="25" rows="4" class="countdown limit_300_"><?php echo $dirleg; ?></textarea></td>
+    <td colspan="2"><span class="fontnormal"><font color="#FF0000"> <?php echo form_error('dirleg'); ?></font></span></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><br /></td>
+    <td>&nbsp;</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">&nbsp;</td>
+    <td align="right">&nbsp;</td>
+    <td align="right" colspan="2"></td>
+  </tr>
+    </table>    
+                   
+    <table width="800" border="0" cellpadding="0" cellspacing="0" >
+      <tr>
+        <th width="258" align="right" scope="col">&nbsp;</th><td><div align="right" >&nbsp;&nbsp;&nbsp; 
+            <input type="submit" name="boton" value="Guardar" />&nbsp;&nbsp;&nbsp; <?php if ($modo == 'edit'){?>
+		
+		
+		<?php $modo = '/edit'; ?>
+		
+		
+		<?php }else{ ?>
+		<?php $modo = ''; ?>
+       
+		<input type="button" name="accion" value="Siguiente" onclick="enviar(2,<?php echo $valorpk; ?>)" />
+		<?php // echo anchor('con_reg_3/index/'.$valorpk.'/new', '<img alt="Modificar" src="'.base_url().'system/application/imagenes/boton_continuar.gif" border="0">' );  ?>
+		
+		<?php } ?>
+		<input type="button" name="fin" value="Finalizar" onclick="enviar(1)" />
+</div>        
+		
+			</td>
+      </tr>
+    </table>
+    <p><?php echo form_close(); ?></p>
+				   <div class="tablein_1">
+				   
+  <table width="800" class="bgceldas">
+    <tr class="bgtitle">
+	  
+      <th width="106" style="font-size:10px">Nº. Reg.Mercantil </th>
+      <th width="132" style="font-size:10px">F. Ins. Reg Mercantil</th>
+      <th width="85" style="font-size:10px">Nº. Inscrip</th>
+      <th width="128" style="font-size:10px">Capital Soc. Suscrito</th>
+      <th width="136" style="font-size:10px">Capital Soc. Pagado</th>
+      <th width="27" style="font-size:10px">Tipo</th>
+	  <th width="8" style="font-size:10px"></th>
+    </tr>
+	
+	<?php foreach($consulta_contratista_legal->result() as $row): ?>
+<?php echo "<tr>"; ?>
+<?php echo "<td>"; ?> <?php echo $row->clg_numero_registro; ?> <?php echo "</td>"; ?> 
+<?php echo "<td>"; ?> <?php echo $this->mylib_base->pg_to_human($row->clg_fecha_inscripcion); ?> <?php echo "</td>"; ?>
+<?php echo "<td>"; ?> <?php echo $row->clg_numero_inscripcion; ?> <?php echo "</td>"; ?> 
+<?php echo "<td>"; ?> <?php echo $row->clg_capital_social_suscrito; ?> <?php echo "</td>"; ?>
+<?php echo "<td>"; ?> <?php echo $row->clg_capital_social_pagado; ?> <?php echo "</td>"; ?>
+<?php echo "<td>"; ?> <?php if($row->clg_modificacion == 'f'){echo "Registro Principal";}else{echo "Modificación"; } ?> <?php echo "</td>"; ?>
+
+<?php $attr = array(
+'onclick'=>"return confirm('¿Esta seguro de borrar este registro?');"
+); ?>
+
+<?php echo "<td style=\"width:40px\">"; ?><?php echo anchor('con_reg_2/grabar/'.$valorpk.'/'.$row->clg_contratistas_legal_pk.$modo, '<img alt="Modificar" src="'.base_url().'system/application/imagenes/edit.png" border="0">');?>&nbsp;<?php echo anchor('con_reg_2/eliminar/'.$valorpk.'/'.$row->clg_contratistas_legal_pk.$modo, '<img alt="Eliminar" src="'.base_url().'system/application/imagenes/delete.png" border="0">',$attr) ?> <?php echo "</td>"; ?>
+
+<?php  echo "</tr>"; ?>
+<?php endforeach; ?>
+
+		</table>		     
+                </div>                                                                               </p>
+  </div>
+</div>
+<div class="bgfooter" style="top:60%;"> <div class="footerimage"> </div></div>
+</body>
+</html>

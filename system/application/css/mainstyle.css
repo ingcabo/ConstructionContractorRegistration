@@ -1,0 +1,34 @@
+@charset "utf-8";
+/* CSS Document */
+
+body { margin:0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px;}
+
+.headerwrap { background:url(../imagenes/bg_wrap_top.png); width:100%; height:200px;}
+.header { width:760px; margin:auto;}
+.logo {
+	width:250px;
+	height:91px;
+	background:url(../imagenes/logo_regco.png);
+	float:left;
+	margin-top:60px;	
+}
+
+.marco_btns { width:502px; height:96px; 
+background:url(../imagenes/marco_botones.png);
+float:right; margin-top:60px;}
+
+.botones {
+	width:486px;
+	height:80px;
+	margin:8px;
+}
+
+.logozulia { background:#666666;}
+
+.fecha { float:left; width:170px; height:20px; margin-top:20px; }
+
+.bodywrap { width:100%; background:url(../imagenes/body_wrap.png) top repeat-x;
+}
+.bodyinfo { width:720px; margin:auto; padding-left:40px; background:url(../imagenes/bg_bodyinfo.png) top repeat-x;}
+.footer { height:50px; text-align:center;}
+

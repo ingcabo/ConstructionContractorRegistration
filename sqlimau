@@ -1,0 +1,19 @@
+UPDATE clientes SET cli_tarifa_anterior = 22 where cli_clientes_pk in
+(select cli_clientes_pk
+from clientes, tarifas
+where tar_tarifas_fk = tar_tarifas_pk and tar_descripcion <> 'EEVTA_01' and tar_descripcion <> 'EEVTA_02' and tar_descripcion <> 'EEV_EMPLEA' and tar_descripcion <> 'EEV_EMPLED'
+      and cli_tarifa_anterior >= 0 and cli_tarifa_anterior <= 22)
+
+UPDATE clientes SET cli_tarifa_anterior = 99 where cli_clientes_pk in
+(select cli_clientes_pk
+from clientes, tarifas
+where tar_tarifas_fk = tar_tarifas_pk and tar_descripcion <> 'EEVTA_01' and tar_descripcion <> 'EEVTA_02' and tar_descripcion <> 'EEV_EMPLEA' and tar_descripcion <> 'EEV_EMPLED'
+      and cli_tarifa_anterior >= 54 and cli_tarifa_anterior <= 99)
+
+
+UPDATE clientes SET cli_tarifa_anterior = 55 where cli_clientes_pk in
+(select cli_clientes_pk
+from clientes, tarifas
+where tar_tarifas_fk = tar_tarifas_pk and tar_descripcion <> 'EEVTA_01' and tar_descripcion <> 'EEVTA_02' and tar_descripcion <> 'EEV_EMPLEA' and tar_descripcion <> 'EEV_EMPLED'
+      and cli_tarifa_anterior > 22 and cli_tarifa_anterior < 54)
+

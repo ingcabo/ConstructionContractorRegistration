@@ -1,0 +1,276 @@
+/******************************************************************
+HORIZONTAL MENU (menulist)
+******************************************************************/
+#listMenuRoot {
+width: 950px;
+height: 50px;
+position: relative;
+z-index: 100;
+/* top: -4px;
+left: -10px;*/
+}
+
+/* All <ul> tags in the menu including the first level */
+.menulist, .menulist  ul {
+margin: 0;
+padding: 0;
+list-style: none;
+}
+
+/* Submenus (<ul> tags) are hidden and absolutely positioned downwards from their parent */
+.menulist ul {
+visibility: hidden;
+position: absolute;
+top: 2.4em; /* I'm using ems rather than px to allow people to zoom their font */
+left: 0px;
+width: 150px;
+border: 1px solid #330;
+padding-bottom:1px;
+}
+
+/* Second and third etc. level submenus - position across from parent instead */
+.menulist ul ul {
+top: 0px;
+left: 152px;
+}
+
+/*
+All menu items (<li> tags). 'float: left' lines them up horizontally, and they are
+positioned relatively to correctly offset submenus. Also, they have overlapping borders.
+*/
+.menulist li {
+float: left;
+position: relative;
+background: #FFF;
+margin-right: -1px;
+}
+
+
+.cssHijo li {
+float: left;
+position: relative;
+background: #F2F2F2;
+margin-right: -1px;
+}
+
+/* Items in submenus - override float/border/margin from above, restoring default vertical style */
+.menulist ul li {
+float: none;
+margin-right: 0;
+margin-bottom: -1px;
+text-align: left;
+}
+
+/* Links inside the menu */
+.menulist a {
+display: block;
+padding: 3px;
+color: #000;
+text-decoration: none;
+}
+
+/* Lit  items: 'hover' is mouseover, 'highlighted' are parent items to visible menus */
+.menulist a:hover, .menulist a.highlighted:hover {
+color: #FFF;
+background-color: #A64;
+text-decoration: none;
+}
+
+.menulist a.highlighted {
+color: #FFF;
+background-color: #C86;
+text-decoration: none;
+}
+
+/* Only style submenu indicators within submenus. */
+.menulist a .subind {
+display:  none;
+}
+.menulist ul a .subind {
+display:  block;
+float: right;
+}
+
+/* 'Escaped Comment' hack for horizontal menubar width in IE5/Mac */
+.menulist a {
+float: left;
+}
+.menulist ul a {
+float: none;
+}
+/* \*/
+.menulist a {
+float: none;
+}
+/* */
+
+/* This semi-commented section exists to fix bugs in IE/Windows (the 'Holly Hack'). \*/
+* html .menulist  ul li {
+float: left;
+height: 1%;
+}
+* html .menulist  ul a {
+height: 1%;
+}
+/* End Hack */
+
+
+/* *************************************************************
+   SBC Custom Colors and settings
+************************************************************* */
+.sbcMenu {
+    text-align: center;
+    width: 120px;
+    padding: 0px;
+    margin: 5px;
+    line-height: 1.5em;
+    border: 1px solid #FFF;
+    font-weight:normal;
+}
+
+/*Main Items are WHITE*/
+#menu1 A, #menu2 A, #menu3 A, #menu4 A, #menu5 A, #menu6 A, #menu7 A, #menu8 A                        
+{ color: white; font-weight: bold; }
+/*Sub menu items are BLACK*/
+#menu1 LI A, #menu2 LI A, #menu3 LI A, #menu4 LI A, #menu5 LI A, #menu6 LI A, #menu7 LI A, #menu8 LI A   { color: black; }
+/* ************************************************************* */
+#menu1, #menu1 A.highlighted { background: #2a346c; color: white; }
+#menu1 A:HOVER, #menu1 A.highlighted:HOVER { background: #5E549D; color: white; }
+/* ************************************************************* */
+
+/* ************************************************************* */
+#menu1 A.disable { background: #E8E9E8; color: #666666; cursor:default; }
+#menu1 A.disable:HOVER { background: #E8E9E8; color: #666666; cursor:default; }
+/* ************************************************************* */
+
+
+#menu2, #menu2 A.highlighted { background: #f99d27; color: white; }
+#menu2 A:HOVER, #menu2 A.highlighted:HOVER { background: #F2BB6A; color: white; }
+/* ************************************************************* */
+#menu3, #menu3 A.highlighted { background: #830078; color: white; }
+#menu3 A:HOVER, #menu3 A.highlighted:HOVER { background: #AF74B6; color: white; }
+/* ************************************************************* */
+#menu4, #menu4 A.highlighted { background: #8abf3c; color: white; }
+#menu4 A:HOVER, #menu4 A.highlighted:HOVER { background: #93DE43; color: white; }
+/* ************************************************************* */
+#menu5, #menu5 A.highlighted { background: #E66D9F; color: white; }
+#menu5 A:HOVER, #menu5 A.highlighted:HOVER { background: #E68D9F; color: white; }
+/* ************************************************************* */
+
+
+/* ************************************************************* */
+#menu5 A.disable { background: #E8E9E8; color: #666666; cursor:default; }
+#menu5 A.disable:HOVER { background: #E8E9E8; #666666; cursor:default; }
+/* ************************************************************* */
+
+
+#menu6, #menu6 A.highlighted { background: #0a94d5; color: white; }
+#menu6 A:HOVER, #menu6 A.highlighted:HOVER { background: #74ADE6; color: white; }
+/* ************************************************************* */
+#menu7, #menu7 A.highlighted { background: #0a94d5; color: white; }
+#menu7 A:HOVER, #menu7 A.highlighted:HOVER, #menu7 A.highlighted:FOCUS { background: #AAAAEE; color: white; }
+/* ************************************************************* */
+
+#menu8, #menu8 A.highlighted { background: #99CCFF; color: white; }
+#menu8 A:HOVER, #menu8 A.highlighted:HOVER { background: #B2DAFF; color: white; } 
+
+
+
+/******************************************************************
+VERTICAL MENU (menulistVert)
+******************************************************************/
+
+/* All <ul> tags in the menu including the first level */
+.menulistVert, .menulistVert ul {
+margin: 0;
+padding: 0;
+width: 150px;
+list-style: none;
+border: 1px solid #330;
+z-index: 100;
+}
+
+/* Submenus (<ul> tags) are hidden and absolutely positioned across from their parent */
+.menulistVert ul {
+visibility: hidden;
+position: absolute;
+top: 0;
+left: 152px;
+}
+
+/*
+All menu items (<li> tags) are relatively positioned to correctly offset their submenus.
+They have borders that are slightly overlaid on one another to avoid doubling up.
+*/
+.menulistVert li {
+position: relative;
+/*border: 1px solid #330;*/
+background: #EEE;
+margin-bottom: -1px;
+}
+.menulistVert ul>li:last-child {
+margin-bottom: 1px;
+}
+
+/* Links inside the menu */
+.menulistVert a {
+display: block;
+padding: 3px;
+color: #000;
+text-decoration: none;
+border: 1px solid #999;
+}
+
+/*
+Lit items: 'hover' is mouseover, 'highlighted' are parent items to visible menus.
+*/
+.menulistVert a:hover, .menulistVert a.highlighted:hover, .menulistVert a:focus {
+color: #000;
+background-color: #CCC;
+text-decoration: none;
+
+}
+.menulistVert a.highlighted {
+color: #000;
+background-color: #BBB;
+text-decoration: none;
+}
+
+/* 'subind' submenu indicators, which are automatically prepended to 'A' tag contents. */
+.menulistVert a .subind {
+float: right;
+}
+
+/* This semi-commented section exists to fix bugs in IE/Windows (the 'Holly Hack'). \*/
+* html .menulistVert li {
+float: left;
+height: 1%;
+}
+* html .menulistVert a {
+height: 1%;
+}
+.menulistVert .disabled { color: #888; }
+/* End Hack */
+
+
+/*************************************************
+File browser options
+*************************************************/
+
+/* Submenus (<ul> tags) are hidden and absolutely positioned across from their parent */
+#browsermenu_fm UL, #browsermenu_go UL {
+visibility: hidden;
+position: absolute;
+top: 3px;
+left: 0;
+width: 170px;
+}
+
+#browsermenu_fm UL LI A, #browsermenu_go UL LI A {
+padding: 0;
+margin: 0;
+} 
+
+
+
+
